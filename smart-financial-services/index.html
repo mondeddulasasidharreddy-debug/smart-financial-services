@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Financial Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>Smart Financial Services</h1>
+    <p>Plan a loan, grow your savings, set a goal and track your money in one place.</p>
+  </div>
+  <button id="theme" type="button" aria-label="Switch colour theme">Theme</button>
+</header>
+
+<nav role="tablist" aria-label="Services">
+  <button role="tab" data-t="emi">Loan EMI</button>
+  <button role="tab" data-t="sip">Investment (SIP)</button>
+  <button role="tab" data-t="goal">Savings goal</button>
+  <button role="tab" data-t="budget">Money tracker</button>
+</nav>
+
+<main>
+  <section id="emi">
+    <div>
+      <h2>Loan EMI calculator</h2>
+      <p class="hint">See your monthly instalment and total interest.</p>
+      <label for="e-p">Loan amount (₹)</label><input id="e-p" type="number" min="0" value="2500000">
+      <label for="e-r">Interest rate (% per year)</label><input id="e-r" type="number" min="0" step="0.1" value="8.5">
+      <label for="e-y">Tenure (years)</label><input id="e-y" type="number" min="1" max="40" value="20">
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Monthly EMI</div><div class="big num" id="e-emi"></div>
+      <div class="bar"><i id="e-b1" style="background:var(--brand)"></i><i id="e-b2" style="background:var(--loss)"></i></div>
+      <div class="legend"><span style="--c:var(--brand)">Principal</span><span style="--c:var(--loss)">Interest</span></div>
+      <div class="row"><span>Total interest</span><b id="e-int"></b></div>
+      <div class="row"><span>Total payment</span><b id="e-tot"></b></div>
+      <div class="wrap"><table><thead><tr><th>Year</th><th>Principal paid</th><th>Interest paid</th><th>Balance</th></tr></thead><tbody id="e-tb"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="sip">
+    <div>
+      <h2>Investment (SIP) calculator</h2>
+      <p class="hint">Estimate what a monthly investment could become.</p>
+      <label for="s-m">Monthly investment (₹)</label><input id="s-m" type="number" min="0" value="10000">
+      <label for="s-r">Expected return (% per year)</label><input id="s-r" type="number" min="0" step="0.1" value="12">
+      <label for="s-y">Period (years)</label><input id="s-y" type="number" min="1" max="50" value="15">
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Estimated value</div><div class="big num" id="s-fv"></div>
+      <div class="bar"><i id="s-b1" style="background:var(--brand)"></i><i id="s-b2" style="background:var(--gain)"></i></div>
+      <div class="legend"><span style="--c:var(--brand)">Invested</span><span style="--c:var(--gain)">Gains</span></div>
+      <div class="row"><span>Amount invested</span><b id="s-inv"></b></div>
+      <div class="row"><span>Estimated gains</span><b id="s-gain" class="gain"></b></div>
+      <p class="hint">Returns are not guaranteed. This is an estimate, not advice.</p>
+    </div>
+  </section>
+
+  <section id="goal">
+    <div>
+      <h2>Savings goal planner</h2>
+      <p class="hint">Find the monthly amount needed to reach a target.</p>
+      <label for="g-t">Target amount (₹)</label><input id="g-t" type="number" min="0" value="1000000">
+      <label for="g-c">Already saved (₹)</label><input id="g-c" type="number" min="0" value="100000">
+      <label for="g-r">Expected return (% per year)</label><input id="g-r" type="number" min="0" step="0.1" value="7">
+      <label for="g-y">Time to goal (years)</label><input id="g-y" type="number" min="1" max="50" value="5">
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Save each month</div><div class="big num" id="g-pm"></div>
+      <div class="row"><span>Your total deposits</span><b id="g-dep"></b></div>
+      <div class="row"><span>Growth on savings</span><b id="g-gr" class="gain"></b></div>
+      <div class="row"><span>Goal</span><b id="g-goal"></b></div>
+    </div>
+  </section>
+
+  <section id="budget">
+    <div>
+      <h2>Money tracker</h2>
+      <p class="hint">Add income and spending. Entries stay in this browser.</p>
+      <label for="b-type">Type</label>
+      <select id="b-type"><option value="expense">Expense</option><option value="income">Income</option></select>
+      <label for="b-cat">Category</label>
+      <select id="b-cat"><option>Food</option><option>Rent</option><option>Travel</option><option>Bills</option><option>Shopping</option><option>Salary</option><option>Other</option></select>
+      <label for="b-amt">Amount (₹)</label><input id="b-amt" type="number" min="0" placeholder="0">
+      <label for="b-note">Note (optional)</label><input id="b-note" type="text" maxlength="60">
+      <button class="add" id="b-add" type="button">Add entry</button>
+    </div>
+    <div class="result">
+      <div>Balance</div><div class="big num" id="b-bal"></div>
+      <div class="row"><span>Income</span><b id="b-in" class="gain"></b></div>
+      <div class="row"><span>Expenses</span><b id="b-out" class="loss"></b></div>
+      <div class="wrap"><table><tbody id="b-list"></tbody></table></div>
+    </div>
+  </section>
+</main>
+<footer>For planning only. Figures are estimates and are not financial advice.</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
